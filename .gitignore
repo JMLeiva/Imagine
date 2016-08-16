@@ -88,3 +88,25 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/encodings.xml
+.idea/gradle.xml
+.idea/libraries/android_android_23.xml
+.idea/libraries/hamcrest_core_1_3.xml
+.idea/libraries/junit_4_12.xml
+.idea/libraries/recyclerview_v7_23_1_1.xml
+.idea/libraries/support_annotations_23_1_1.xml
+.idea/misc.xml
+.idea/libraries/support_v4_23_1_1.xml
+.idea/modules.xml
+.idea/runConfigurations.xml
+.idea/workspace.xml
+app/proguard-rules.pro
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+gradlew
+gradlew.bat
+imaginelib/proguard-rules.pro
+settings.gradle
