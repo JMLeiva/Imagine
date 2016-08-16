@@ -110,3 +110,4 @@ gradlew
 gradlew.bat
 imaginelib/proguard-rules.pro
 settings.gradle
+gradle.properties
