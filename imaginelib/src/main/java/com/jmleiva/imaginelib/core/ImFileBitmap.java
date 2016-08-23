@@ -38,7 +38,12 @@ public class ImFileBitmap extends ImBitmap
      */
     public ImFileBitmap(String imBitmapId, String localPath)
     {
-        super(imBitmapId);
+        this(imBitmapId, localPath, null);
+    }
+
+    ImFileBitmap(String imBitmapId, String localPath, ImBitmapManager imBitmapManager)
+    {
+        super(imBitmapId, imBitmapManager);
         this.localPath = localPath;
     }
 

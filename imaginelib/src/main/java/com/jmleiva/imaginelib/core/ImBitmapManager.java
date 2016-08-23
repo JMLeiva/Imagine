@@ -259,7 +259,7 @@ public class ImBitmapManager
 
         if (imBitmapMap.get(key) == null)
         {
-            ImRemoteBitmap newRemoteBitmap = new ImRemoteBitmap(key, urlPath);
+            ImRemoteBitmap newRemoteBitmap = new ImRemoteBitmap(key, urlPath, this);
 
             imBitmapMap.put(key, newRemoteBitmap);
 
@@ -281,7 +281,7 @@ public class ImBitmapManager
 
         if (imBitmapMap.get(key) == null)
         {
-            ImResourceBitmap newResourceBitmap = new ImResourceBitmap(key, resourceId, context);
+            ImResourceBitmap newResourceBitmap = new ImResourceBitmap(key, resourceId, context, this);
 
             imBitmapMap.put(key, newResourceBitmap);
 
@@ -301,7 +301,7 @@ public class ImBitmapManager
 
         if (imBitmapMap.get(key) == null)
         {
-            ImFileBitmap newFileBitmap = new ImFileBitmap(key, path);
+            ImFileBitmap newFileBitmap = new ImFileBitmap(key, path, this);
 
             imBitmapMap.put(key, newFileBitmap);
 

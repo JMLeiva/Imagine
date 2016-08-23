@@ -34,7 +34,12 @@ public class ImRawBitmap extends ImBitmap
      */
     public ImRawBitmap(Bitmap bitmap, String cacheBitmapId)
     {
-        super(cacheBitmapId);
+        this(bitmap, cacheBitmapId, null);
+    }
+
+    ImRawBitmap(Bitmap bitmap, String cacheBitmapId, ImBitmapManager imBitmapManager)
+    {
+        super(cacheBitmapId, imBitmapManager);
         originalBitmap = bitmap;
 
         originalWidth = originalBitmap.getWidth();

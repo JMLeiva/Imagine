@@ -42,9 +42,15 @@ public class ImRemoteBitmap  extends ImBitmap
      */
     public ImRemoteBitmap(String cacheBitmapId, String urlPath)
     {
-        super(cacheBitmapId);
+       this(cacheBitmapId, urlPath, null);
+    }
+
+    ImRemoteBitmap(String cacheBitmapId, String urlPath, ImBitmapManager imBitmapManager)
+    {
+        super(cacheBitmapId, imBitmapManager);
         this.urlPath = urlPath;
     }
+
 
     @Override
     public boolean isMalformed()

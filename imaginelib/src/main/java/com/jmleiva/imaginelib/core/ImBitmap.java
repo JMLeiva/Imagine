@@ -105,7 +105,7 @@ public abstract class ImBitmap
         this(cacheBitmapId, null);
     }
 
-    public ImBitmap(String cacheBitmapId, ImBitmapManager imBitmapManager)
+    ImBitmap(String cacheBitmapId, ImBitmapManager imBitmapManager)
     {
         this.cacheBitmapId = cacheBitmapId;
 
@@ -285,9 +285,9 @@ public abstract class ImBitmap
     /**
      *Like {@link ImBitmap#getBitmapAsync(int, int, OnGetBitmapListener)} but for full size
      */
-    public void getBitmapFullAsync(OnGetBitmapListener callback)
+    public AsyncTask getBitmapFullAsync(OnGetBitmapListener callback)
     {
-        getBitmapAsync(originalWidth, originalHeight, callback);
+        return getBitmapAsync(originalWidth, originalHeight, callback);
     }
 
     /**
@@ -297,7 +297,7 @@ public abstract class ImBitmap
      * @param height desired height of the {@link ImBitmapElement}
      * @param callback {@link OnGetBitmapListener} to be called once the operation has finished
      */
-    public void getBitmapAsync(int width, int height, OnGetBitmapListener callback)
+    public AsyncTask getBitmapAsync(int width, int height, OnGetBitmapListener callback)
     {
         if(obtainBitmapTask != null)
         {
@@ -329,6 +329,8 @@ public abstract class ImBitmap
             obtainBitmapTask = new ObtainBitmapTask(width, height, callback);
             obtainBitmapTask.execute();
         }
+
+        return obtainBitmapTask;
     }
 
     /**

@@ -28,6 +28,7 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.ViewGroup.LayoutParams;
@@ -48,15 +49,14 @@ import com.jmleiva.imaginelib.core.ImBitmapElement;
 public class ImBitmapView extends ImageView {
 
     public interface OnImBitmapViewRendered {
-        void OnRendered();
+        void onRendered();
     }
 
     ImBitmap cacheBitmap;
     ImBitmapElement cacheBitmapElement;
     OnImBitmapViewRendered renderedListener;
-
     int currentBitmapHash;
-    int cornerRadius = 0;
+    AsyncTask currenLoadingAsyncTask;
 
     public ImBitmapView(Context context) {
         super(context);
@@ -109,16 +109,23 @@ public class ImBitmapView extends ImageView {
                 this.invalidate();
                 if (renderedListener != null)
                 {
-                    renderedListener.OnRendered();
+                    renderedListener.onRendered();
                 }
                 return;
             }
+        }
+
+        if(currenLoadingAsyncTask != null && currenLoadingAsyncTask.getStatus() != AsyncTask.Status.FINISHED)
+        {
+            currenLoadingAsyncTask.cancel(true);
         }
 
         if (this.cacheBitmapElement != null) {
             this.cacheBitmapElement.release(this);
             this.cacheBitmapElement = null;
         }
+
+
 
         if (cacheBitmap == null) {
             if (defaultBitmap != null) {
@@ -153,10 +160,15 @@ public class ImBitmapView extends ImageView {
                 this.invalidate();
                 if (renderedListener != null)
                 {
-                    renderedListener.OnRendered();
+                    renderedListener.onRendered();
                 }
                 return;
             }
+        }
+
+        if(currenLoadingAsyncTask != null && currenLoadingAsyncTask.getStatus() != AsyncTask.Status.FINISHED)
+        {
+            currenLoadingAsyncTask.cancel(true);
         }
 
         if (this.cacheBitmapElement != null) {
@@ -231,7 +243,7 @@ public class ImBitmapView extends ImageView {
                 return;
             }
 
-            cacheBitmap.getBitmapAsync(getWidth(), getHeight(), new ImBitmap.OnGetBitmapListener()
+            currenLoadingAsyncTask = cacheBitmap.getBitmapAsync(getWidth(), getHeight(), new ImBitmap.OnGetBitmapListener()
             {
                 @Override
                 public void onComplete(ImBitmapElement bitmapElement)
@@ -243,15 +255,12 @@ public class ImBitmapView extends ImageView {
 
                     cacheBitmapElement = bitmapElement;
 
-                    if(bitmapElement != null)
-                    {
-                        setImageBitmap(bitmapElement.getBitmap());
-                        bitmapElement.retain(ImBitmapView.this);
+                    setImageBitmap(bitmapElement.getBitmap());
+                    bitmapElement.retain(ImBitmapView.this);
 
-                        if(renderedListener != null)
-                        {
-                            renderedListener.OnRendered();
-                        }
+                    if(renderedListener != null)
+                    {
+                        renderedListener.onRendered();
                     }
                 }
 
@@ -283,7 +292,7 @@ public class ImBitmapView extends ImageView {
                     setImageBitmap(cacheBitmapElement.getBitmap());
 
                     if (renderedListener != null) {
-                        renderedListener.OnRendered();
+                        renderedListener.onRendered();
                     }
                 }
             }

@@ -41,12 +41,24 @@ public class ImResourceBitmap extends ImBitmap
         this.context = context;
     }
 
+    public ImResourceBitmap(String imBitmapId, Context context, ImBitmapManager imBitmapManager)
+    {
+        super(imBitmapId, imBitmapManager);
+        this.context = context;
+    }
+
     /**
      * ImResourceBitmap Contructor
      * @param imBitmapId {@link String} identifier. Unique for each CacheBitmap, and used to find them if they are cached.
      * @param resourceId resource ID used to load the Bitmap
      */
     public ImResourceBitmap(String imBitmapId, int resourceId, Context context)
+    {
+        this(imBitmapId, context);
+        this.resourceId = resourceId;
+    }
+
+    ImResourceBitmap(String imBitmapId, int resourceId, Context context, ImBitmapManager imBitmapManager)
     {
         this(imBitmapId, context);
         this.resourceId = resourceId;
